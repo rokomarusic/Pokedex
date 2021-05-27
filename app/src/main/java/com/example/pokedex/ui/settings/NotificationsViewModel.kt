@@ -1,4 +1,4 @@
-package com.example.pokedex.ui.notifications
+package com.example.pokedex.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
