@@ -21,7 +21,6 @@ class ApiClient {
             .readTimeout(2, TimeUnit.MINUTES)
             .writeTimeout(2, TimeUnit.MINUTES)
             .retryOnConnectionFailure(true)
-            .addInterceptor(loggingInterceptor)
             .build()
 
 
