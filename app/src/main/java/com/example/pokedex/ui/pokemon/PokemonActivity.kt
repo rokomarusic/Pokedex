@@ -8,11 +8,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.pokedex.R
 import com.example.pokedex.databinding.ActivityPokemonBinding
 import com.example.pokedex.models.Ability
+import com.example.pokedex.models.Info
 import com.example.pokedex.models.Pokemon
+import com.example.pokedex.models.Stat
 import com.example.pokedex.util.Util
 import kotlinx.android.synthetic.main.pokemon_basic_info.view.*
 
@@ -63,5 +66,15 @@ class PokemonActivity : AppCompatActivity() {
         binding.hwPokemon.heightTile.imgInfoTile.load(R.drawable.ic_height) { size(64) }
         binding.hwPokemon.heightTile.infoName.text = resources.getString(R.string.height)
         binding.hwPokemon.heightTile.infoData.text = Util.heightToImperial(pokemon.height, resources)
+
+
+        //postavljanje statova
+
+        val stats = mutableListOf<Stat>()
+        stats.addAll(pokemon.stats)
+        stats.add(Stat(Util.getTotalStat(pokemon.stats), 0, Info(resources.getString(R.string.total), "")))
+        val statAdapter = StatAdapter(stats)
+        binding.stats.statlist.layoutManager = LinearLayoutManager(this)
+        binding.stats.statlist.adapter = statAdapter
     }
 }

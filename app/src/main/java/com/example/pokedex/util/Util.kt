@@ -2,6 +2,7 @@ package com.example.pokedex.util
 
 import android.content.res.Resources
 import com.example.pokedex.R
+import com.example.pokedex.models.Stat
 import kotlin.math.round
 
 object Util {
@@ -58,5 +59,39 @@ object Util {
         return resources.getString(R.string.height_value, round(feet).toInt().toString(),
                 round(inch).toInt().toString(),
                 (m.toFloat() / 10).toString())
+    }
+
+    fun getStatName(stat: String): Int {
+        when (stat) {
+            "hp" -> return R.string.hp
+            "attack" -> return R.string.attack
+            "defense" -> return R.string.defense
+            "special-attack" -> return R.string.special_attack
+            "special-defense" -> return R.string.special_defense
+            "speed" -> return R.string.speed
+        }
+
+        return R.string.app_name
+    }
+
+    fun getStatColor(stat: String): Int {
+        when (stat) {
+            "hp" -> return R.color.flat_base_stats_01_hp
+            "attack" -> return R.color.flat_base_stats_02_attack
+            "defense" -> return R.color.flat_base_stats_03_defense
+            "special-attack" -> return R.color.flat_base_stats_04_sp_atk
+            "special-defense" -> return R.color.flat_base_stats_05_sp_def
+            "speed" -> return R.color.flat_base_stats_06_speed
+        }
+
+        return R.color.black
+    }
+
+    fun getTotalStat(stats: List<Stat>): Int {
+        var sum = 0
+        for (stat in stats) {
+            sum += stat.base_stat
+        }
+        return sum
     }
 }
