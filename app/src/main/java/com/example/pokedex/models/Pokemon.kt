@@ -9,7 +9,10 @@ data class Pokemon(
         val id: Int,
         val name: String,
         val order: Int,
-        val weight: Int, val sprites: Sprites
+        val weight: Int, val sprites: Sprites,
+        val stats: List<Stat>,
+        val abilities: List<Ability>,
+        val types: List<Type>
 ) : Serializable
 
 data class Sprites(val other: SpritesOthers) : Serializable
@@ -22,3 +25,25 @@ data class SpritesOthers(
 ) : Serializable
 
 data class OfficialArtwork(val front_default: String) : Serializable
+
+data class Stat(
+        val base_stat: Int,
+        val effort: Int,
+        val stat: Info) : Serializable
+
+data class Ability(
+        val ability: Info,
+        val is_hidden: Boolean,
+        val slot: Int
+) : Serializable
+
+data class Type(
+        val slot: Int,
+        val type: Info
+) : Serializable
+
+data class Info(
+        val name: String,
+        val url: String) : Serializable
+
+

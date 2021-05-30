@@ -12,7 +12,7 @@
         android:strokeAlpha="0"
         android:strokeColor="#00000000" />
     <path
-        android:fillColor="#1C1F22"
+        android:fillColor="@color/tint_secondary"
         android:fillType="evenOdd"
         android:pathData="M12,17.27l6.18,3.73l-1.64,-7.03l5.46,-4.73l-7.19,-0.61l-2.81,-6.63l-2.81,6.63l-7.19,0.61l5.46,4.73l-1.64,7.03z"
         android:strokeWidth="1"
