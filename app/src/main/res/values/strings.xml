@@ -32,5 +32,18 @@
     <string name="evolution1">1ST EVOLUTION</string>
     <string name="evolution2">2ND EVOLUTION</string>
     <string name="lvl">Lv %1$s</string>
+    <string name="title_activity_type">TypeActivity</string>
+    <string name="tab_text_1">DAMAGE OVERVIEW</string>
+    <string name="tab_text_2">MOVES</string>
+    <string name="power">POWER</string>
+    <string name="types">TYPES</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="defensive">Defensive</string>
+    <string name="offensive">Offensive</string>
+    <string name="double_damage">2x</string>
+    <string name="half_damage">1/2x</string>
+    <string name="no_damage">0x</string>
+    <string name="type_name">%1$s type</string>
+    <string name="none">None</string>
 
 </resources>

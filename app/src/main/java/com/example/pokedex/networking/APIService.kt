@@ -4,10 +4,7 @@ package com.example.projekt1.networking
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
-import com.example.pokedex.models.Pokemon
-import com.example.pokedex.models.PokemonEvolution
-import com.example.pokedex.models.PokemonSearch
-import com.example.pokedex.models.PokemonSpecies
+import com.example.pokedex.models.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
@@ -27,6 +24,9 @@ interface APIService {
 
     @GET("{species}")
     suspend fun getPokemonSpecies(@Path("species") species: String): PokemonSpecies
+
+    @GET("{type}")
+    suspend fun getPokemonType(@Path("type") type: String): PokemonType
 
     @GET("{evolution}")
     suspend fun getEvolutionChain(@Path("evolution") evolution: String): PokemonEvolution

@@ -1,5 +1,6 @@
 package com.example.pokedex.ui.pokemon
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.pokedex.models.Ability
 import com.example.pokedex.models.Info
 import com.example.pokedex.models.Pokemon
 import com.example.pokedex.models.Stat
+import com.example.pokedex.type.TypeActivity
 import com.example.pokedex.util.Util
 import com.example.pokedex.viewmodel.PokemonViewModel
 import kotlinx.android.synthetic.main.pokemon_basic_info.view.*
@@ -47,11 +49,33 @@ class PokemonActivity : AppCompatActivity() {
         binding.pokemonBasicInfo.type1.tvTypeName.text = Util.capitalizeFirstLetter(pokemon.types[0].type.name)
         binding.pokemonBasicInfo.type1.root.background.setTint(ContextCompat.getColor(this, Util.getTypeColor(pokemon.types[0].type.name)))
 
+        model.getType(pokemon.types[0].type.url, 1)
+
+        model.type1.observe(this, {
+            binding.pokemonBasicInfo.type1.root.setOnClickListener {
+                val intent = Intent(this, TypeActivity::class.java)
+                intent.putExtra("EXTRA_TYPE", model.type1.value)
+                startActivity(intent)
+            }
+        })
+
 
         //postavljanje drugog type slota, ukoliko ga pokemon ima
         if (pokemon.types.size == 2) {
             binding.pokemonBasicInfo.type2.tvTypeName.text = Util.capitalizeFirstLetter(pokemon.types[1].type.name)
             binding.pokemonBasicInfo.type2.root.background.setTint(ContextCompat.getColor(this, Util.getTypeColor(pokemon.types[1].type.name)))
+
+            model.getType(pokemon.types[1].type.url, 2)
+
+
+            model.type2.observe(this, {
+                binding.pokemonBasicInfo.type2.root.setOnClickListener {
+                    val intent = Intent(this, TypeActivity::class.java)
+                    intent.putExtra("EXTRA_TYPE", model.type2.value)
+                    startActivity(intent)
+                }
+            })
+
         } else {
             binding.pokemonBasicInfo.type2.root.visibility = View.GONE
         }

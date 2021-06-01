@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pokedex">
-        <activity android:name=".ui.pokemon.PokemonActivity"></activity>
+        <activity
+            android:name=".type.TypeActivity"
+            android:label="@string/title_activity_type"
+            android:theme="@style/Theme.Pokedex.NoActionBar"></activity>
+        <activity android:name=".ui.pokemon.PokemonActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

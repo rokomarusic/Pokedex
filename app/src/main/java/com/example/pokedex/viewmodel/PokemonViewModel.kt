@@ -23,6 +23,8 @@ class PokemonViewModel : ViewModel() {
     val hints = MutableLiveData<ArrayList<String>>()
     val evolutionMap = MutableLiveData<Map<Int, MutableList<Pokemon>>>()
     val minLvlMap = MutableLiveData<Map<Int, MutableList<Int?>>>()
+    val type1 = MutableLiveData<PokemonType>()
+    val type2 = MutableLiveData<PokemonType>()
 
 
     init {
@@ -85,6 +87,18 @@ class PokemonViewModel : ViewModel() {
             }
 
             evolutionMap.value = mapOfEvolutions
+        }
+    }
+
+    fun getType(type: String, no: Int) {
+        viewModelScope.launch {
+            val waitingType = async { RetrofitBuilder.apiService.getPokemonType(type.substring(18)) }
+            val type = waitingType.await()
+            if (no == 1) {
+                type1.value = type
+            } else {
+                type2.value = type
+            }
         }
     }
 
