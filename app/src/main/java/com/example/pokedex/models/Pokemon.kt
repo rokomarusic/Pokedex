@@ -12,7 +12,8 @@ data class Pokemon(
         val weight: Int, val sprites: Sprites,
         val stats: List<Stat>,
         val abilities: List<Ability>,
-        val types: List<Type>
+        val types: List<Type>,
+        val species: Info
 ) : Serializable
 
 data class Sprites(val other: SpritesOthers) : Serializable
@@ -45,5 +46,7 @@ data class Type(
 data class Info(
         val name: String,
         val url: String) : Serializable
+
+
 
 

@@ -13,6 +13,7 @@ import com.example.pokedex.R
 import com.example.pokedex.util.Util
 import com.example.pokedex.databinding.ItemPokemonBinding
 import com.example.pokedex.models.Pokemon
+import com.example.pokedex.paging.PokemonDiffUtil
 import com.example.pokedex.ui.pokemon.PokemonActivity
 
 class SearchAdapter :

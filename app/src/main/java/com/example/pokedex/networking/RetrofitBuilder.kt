@@ -11,7 +11,7 @@ import java.net.ConnectException
 
 object RetrofitBuilder {
 
-    private const val BASE_URL = "https://pokeapi.co/api/v2/"
+    private const val BASE_URL = "https://pokeapi.co/"
 
     private fun getRetrofit(): Retrofit {
 

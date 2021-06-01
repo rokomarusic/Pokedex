@@ -94,4 +94,14 @@ object Util {
         }
         return sum
     }
+
+    fun getEvolution(level: Int): Int {
+        if (level == 0) {
+            return R.string.unevolved
+        } else if (level == 1) {
+            return R.string.evolution1
+        } else {
+            return R.string.evolution2
+        }
+    }
 }

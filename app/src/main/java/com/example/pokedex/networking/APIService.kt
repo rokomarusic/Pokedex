@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import com.example.pokedex.models.Pokemon
+import com.example.pokedex.models.PokemonEvolution
 import com.example.pokedex.models.PokemonSearch
+import com.example.pokedex.models.PokemonSpecies
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
@@ -22,6 +24,12 @@ interface APIService {
 
     @GET("{pokemon}")
     suspend fun getPokemon(@Path("pokemon") pokemon: String): Pokemon
+
+    @GET("{species}")
+    suspend fun getPokemonSpecies(@Path("species") species: String): PokemonSpecies
+
+    @GET("{evolution}")
+    suspend fun getEvolutionChain(@Path("evolution") evolution: String): PokemonEvolution
 
     /*@GET("/api/location/search/?query=(query)")
     suspend fun getLocations(@Query("query") name: String): List<LocationResponse>

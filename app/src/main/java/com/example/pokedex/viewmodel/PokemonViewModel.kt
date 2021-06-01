@@ -7,16 +7,22 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.pokedex.models.Pokemon
-import com.example.pokedex.models.PokemonSearch
-import com.example.pokedex.models.PokemonSimple
+import com.example.pokedex.models.*
+import com.example.pokedex.networking.ApiClient
 import com.example.pokedex.paging.PokemonPagingSource
+import com.example.projekt1.networking.APIService
+import com.example.projekt1.networking.RetrofitBuilder
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import java.lang.AssertionError
 
 class PokemonViewModel : ViewModel() {
 
     var pokemonLiveData: LiveData<PagedList<Pokemon>>
     val hints = MutableLiveData<ArrayList<String>>()
+    val evolutionMap = MutableLiveData<Map<Int, MutableList<Pokemon>>>()
+    val minLvlMap = MutableLiveData<Map<Int, MutableList<Int?>>>()
 
 
     init {
@@ -37,6 +43,49 @@ class PokemonViewModel : ViewModel() {
             }
         }
         return LivePagedListBuilder(dataSourceFactory, config)
+    }
+
+    fun getEvolutionChain(species: String) {
+        viewModelScope.launch {
+            println("SPECIES STRING " + species.substring(18))
+            val waitingSpecies = async { RetrofitBuilder.apiService.getPokemonSpecies(species.substring(18)) }
+            val species = waitingSpecies.await()
+            println("SPECIES " + species)
+            val waitingChain = async { RetrofitBuilder.apiService.getEvolutionChain(species.evolution_chain.url.substring(18)) }
+            val temp = waitingChain.await()
+            println("EVOLUŠN ČEIN " + temp)
+            var chain = temp.chain.evolves_to
+            println("CHAIN " + chain)
+            val evolutionList = HashMap<Int, MutableList<Info>>()
+            val minLevelMap = HashMap<Int, MutableList<Int?>>()
+            for (i in chain.indices) {
+                var next = chain
+                minLevelMap[i] = mutableListOf()
+                evolutionList[i] = mutableListOf()
+                evolutionList[i]?.add(temp.chain.species)
+                while (next.isNotEmpty()) {
+                    minLevelMap[i]?.add(next[i].evolution_details[0].min_level)
+                    evolutionList[i]?.add(next[i].species)
+                    next = next[i].evolves_to
+                }
+            }
+
+            minLvlMap.value = minLevelMap
+
+            val mapOfEvolutions = HashMap<Int, MutableList<Pokemon>>()
+
+            for (i in evolutionList.keys) {
+                mapOfEvolutions[i] = mutableListOf()
+                for (info in evolutionList[i]!!) {
+                    val waitingSpecies = async { RetrofitBuilder.apiService.getPokemonSpecies(info.url.substring(18)) }
+                    val species = waitingSpecies.await()
+                    val waitingPokemon = async { RetrofitBuilder.apiService.getPokemon(species.varieties[0].pokemon.url.substring(18)) }
+                    mapOfEvolutions[i]?.add(waitingPokemon.await())
+                }
+            }
+
+            evolutionMap.value = mapOfEvolutions
+        }
     }
 
 }

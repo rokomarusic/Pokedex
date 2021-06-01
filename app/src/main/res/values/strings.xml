@@ -28,5 +28,9 @@
     <string name="special_defense">Sp. Def:</string>
     <string name="speed">Speed:</string>
     <string name="total">Total:</string>
+    <string name="unevolved">UNEVOLVED</string>
+    <string name="evolution1">1ST EVOLUTION</string>
+    <string name="evolution2">2ND EVOLUTION</string>
+    <string name="lvl">Lv %1$s</string>
 
 </resources>

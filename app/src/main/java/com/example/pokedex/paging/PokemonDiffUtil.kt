@@ -1,10 +1,11 @@
-package com.example.pokedex.ui.search
+package com.example.pokedex.paging
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.pokedex.models.Pokemon
 import com.example.pokedex.models.PokemonSimple
 
 object PokemonDiffUtil : DiffUtil.ItemCallback<Pokemon>() {
+
     override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
         return oldItem.name == newItem.name
     }
