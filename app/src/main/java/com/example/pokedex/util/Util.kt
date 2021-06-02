@@ -96,12 +96,53 @@ object Util {
     }
 
     fun getEvolution(level: Int): Int {
-        if (level == 0) {
-            return R.string.unevolved
+        return if (level == 0) {
+            R.string.unevolved
         } else if (level == 1) {
-            return R.string.evolution1
+            R.string.evolution1
         } else {
-            return R.string.evolution2
+            R.string.evolution2
         }
+    }
+
+    fun getGenNumber(generation: String): String {
+        val temp = generation.split("-")
+        return if (temp.size == 2) {
+            temp[1].toUpperCase()
+        } else {
+            temp[0]
+        }
+    }
+
+    fun getGenColor(generation: String): Int {
+        return when (generation) {
+            "generation-i" -> R.color.flat_pokemon_type_grass
+            "generation-ii" -> R.color.flat_pokemon_type_bug
+            "generation-iii" -> R.color.flat_pokemon_type_undefined
+            "generation-iv" -> R.color.flat_pokemon_type_ghost
+            "generation-v" -> R.color.flat_pokemon_type_water
+            "generation-vi" -> R.color.flat_pokemon_type_fighting
+            "generation-vii" -> R.color.flat_pokemon_type_fire
+            "generation-viii" -> R.color.flat_pokemon_type_poison
+            else -> R.color.black
+        }
+    }
+
+    fun getCategoryColor(category: String): Int {
+        return when (category) {
+            "physical" -> R.color.error
+            "special" -> R.color.cold_gray
+            "status" -> R.color.dark_alpha
+            else -> R.color.surface_1
+        }
+    }
+
+    fun getMoveName(move: String): String {
+        if (!move.contains("-")) {
+            return move
+        }
+
+        val temp = move.split("-")
+        return capitalizeFirstLetter(temp[0]) + " " + temp[1]
     }
 }

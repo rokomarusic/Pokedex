@@ -45,5 +45,9 @@
     <string name="no_damage">0x</string>
     <string name="type_name">%1$s type</string>
     <string name="none">None</string>
+    <string name="gen">GEN</string>
+    <string name="move">MOVE</string>
+    <string name="category">CATEGORY</string>
+    <string name="pp">PP</string>
 
 </resources>

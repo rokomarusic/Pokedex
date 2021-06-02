@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/row_background">
+
+    <include
+        android:id="@+id/genValue"
+        layout="@layout/item_move_value"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/moveValue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/moveValue"
+        layout="@layout/item_move_value"
+        android:layout_width="92dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/categoryValue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/genValue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/categoryValue"
+        layout="@layout/item_move_value"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/powerValue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/moveValue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/powerValue"
+        layout="@layout/item_move_value"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/ppValue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/categoryValue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/ppValue"
+        layout="@layout/item_move_value"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/powerValue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

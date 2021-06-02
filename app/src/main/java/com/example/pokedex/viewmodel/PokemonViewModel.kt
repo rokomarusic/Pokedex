@@ -13,6 +13,7 @@ import com.example.pokedex.paging.PokemonPagingSource
 import com.example.projekt1.networking.APIService
 import com.example.projekt1.networking.RetrofitBuilder
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.lang.AssertionError
@@ -25,6 +26,7 @@ class PokemonViewModel : ViewModel() {
     val minLvlMap = MutableLiveData<Map<Int, MutableList<Int?>>>()
     val type1 = MutableLiveData<PokemonType>()
     val type2 = MutableLiveData<PokemonType>()
+    val moves = MutableLiveData<ArrayList<PokemonMove>>()
 
 
     init {
@@ -100,6 +102,18 @@ class PokemonViewModel : ViewModel() {
                 type2.value = type
             }
         }
+    }
+
+    fun getMoves(movesList: List<Info>) {
+        viewModelScope.launch {
+            val waitingMoves = movesList.map {
+                async {
+                    RetrofitBuilder.apiService.getPokemonMove(it.url.substring(18))
+                }
+            }
+            moves.value = waitingMoves.awaitAll() as ArrayList<PokemonMove>
+        }
+
     }
 
 }

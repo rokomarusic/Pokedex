@@ -28,6 +28,9 @@ interface APIService {
     @GET("{type}")
     suspend fun getPokemonType(@Path("type") type: String): PokemonType
 
+    @GET("{move}")
+    suspend fun getPokemonMove(@Path("move") move: String): PokemonMove
+
     @GET("{evolution}")
     suspend fun getEvolutionChain(@Path("evolution") evolution: String): PokemonEvolution
 

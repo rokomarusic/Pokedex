@@ -23,7 +23,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, va
         if (position == 0) {
             return DamageOverviewFragment(type)
         } else {
-            return MovesFragment()
+            return MovesFragment(type)
         }
     }
 
