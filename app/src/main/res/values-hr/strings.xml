@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pokedex</string>
+    <string name="title_home">Početna</string>
+    <string name="settings">Postavke</string>
+    <string name="search">Pretraži</string>
+    <string name="favourites">Favoriti</string>
+    <string name="clear_favourites">Očisti listu favorita</string>
+    <string name="more_info">više informacija</string>
+    <string name="about">O aplikaciji</string>
+    <string name="lang">Jezik</string>
+    <string name="pokedex_num">POKEDEX BR.</string>
+    <string name="type">TIP</string>
+    <string name="height">VISINA</string>
+    <string name="weight">TEŽINA</string>
+    <string name="abilities">Moći</string>
+    <string name="stats">Statovi</string>
+    <string name="evolution">Evolucije</string>
+    <string name="hidden_ability">Skrivena moć</string>
+    <string name="attack">Napad:</string>
+    <string name="defense">Obrana:</string>
+    <string name="special_attack">Brz. Nap:</string>
+    <string name="special_defense">Brz. Obr:</string>
+    <string name="speed">Brzina</string>
+    <string name="total">Ukupno</string>
+    <string name="unevolved">NE-EVOLUIRAN</string>
+    <string name="evolution1">1. EVOLUCIJA</string>
+    <string name="evolution2">2. EVOLUCIJA</string>
+    <string name="tab_text_1">Pregled napada</string>
+    <string name="tab_text_2">POTEZI</string>
+    <string name="power">SNAGA</string>
+    <string name="types">TIPOVI</string>
+    <string name="defensive">Napad</string>
+    <string name="offensive">Obrana</string>
+    <string name="none">Prazno</string>
+    <string name="move">Potez</string>
+    <string name="category">Kategorija</string>
+    <string name="eng">Engleski</string>
+    <string name="cro">Hrvatski</string>
+</resources>

@@ -67,14 +67,11 @@ class SearchFragment : Fragment() {
 
         var thresholdReached = false
         binding.actv.addTextChangedListener {
-            println("UUUUUu")
             if (!binding.actv.enoughToFilter()) {
-                println("ovjde tu")
                 thresholdReached = false
             }
             if (binding.actv.enoughToFilter()) {
                 if (!thresholdReached) {
-                    println("ovdje")
                     thresholdReached = true
                 } else {
                     model.hints.value?.filter { it -> it.startsWith(binding.actv.text.toString()) }
@@ -88,8 +85,6 @@ class SearchFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                 model.pokemonLiveData.value?.filter { it -> it.name.startsWith(binding.actv.text.toString()) }
-                println("TEKST JE " + binding.actv.text.toString())
-                println("NOVI POKEMONI " + model.getPokemons().value)
                 adapter.notifyDataSetChanged()
 
             }

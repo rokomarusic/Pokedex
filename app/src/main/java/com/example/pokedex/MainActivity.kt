@@ -1,5 +1,6 @@
 package com.example.pokedex
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,10 +9,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokedex.databinding.ActivityMainBinding
+import com.example.pokedex.locale.MyContextWrapper
+import com.example.pokedex.locale.MyPreference
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    lateinit var preference: MyPreference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +29,16 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
+                setOf(
+                        R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                )
         )
         navView.setupWithNavController(navController)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        preference = MyPreference(newBase!!)
+        val lang = preference.getLang()
+        super.attachBaseContext(MyContextWrapper.wrap(newBase, lang!!))
     }
 }
