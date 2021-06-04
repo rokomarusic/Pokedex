@@ -72,6 +72,7 @@ class FavsAdapter(private val favs: MutableList<Pokemon>, private val model: Pok
         if (model.reorderEnabled.value == true) {
             holder.binding.imgReorder.load(R.drawable.ic_reorder) { size(64) }
         } else {
+            //model.favourites.value = favs as ArrayList<Pokemon>
             holder.binding.imgReorder.clear()
         }
 
@@ -90,6 +91,10 @@ class FavsAdapter(private val favs: MutableList<Pokemon>, private val model: Pok
             values.add(to - 1, fromValue)
         }*/
         favs.add(to, fromLocation)
+        for ((index, item) in favs.withIndex()) {
+            item.order = index
+        }
+        //model.favourites.value = favs as ArrayList<Pokemon>
     }
 
 }

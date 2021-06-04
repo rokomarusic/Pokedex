@@ -8,5 +8,6 @@ import java.io.Serializable
 data class PokemonSimple(
         @PrimaryKey
         val name: String,
-        val url: String
+        val url: String,
+        var order: Int = 0
 ) : Serializable

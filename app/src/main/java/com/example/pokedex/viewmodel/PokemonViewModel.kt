@@ -1,6 +1,7 @@
 package com.example.pokedex.viewmodel
 
 import android.content.Context
+import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -156,7 +157,8 @@ class PokemonViewModel : ViewModel() {
     fun deletePokemon(pokemon: Pokemon, context: Context?) {
         viewModelScope.launch {
             if (context != null) {
-                DatabaseBuilder.getInstance(context).pokemonDao().deletePokemon(Util.getPokemonSimple(pokemon))
+                println("FAVVALUE" + favourites.value)
+                DatabaseBuilder.getInstance(context).pokemonDao().deletePokemon(Util.getPokemonSimple(pokemon, favourites.value))
             }
         }
     }
@@ -164,7 +166,19 @@ class PokemonViewModel : ViewModel() {
     fun insertPokemon(pokemon: Pokemon, context: Context?) {
         viewModelScope.launch {
             if (context != null) {
-                DatabaseBuilder.getInstance(context).pokemonDao().insertPokemon(Util.getPokemonSimple(pokemon))
+                println("FAVVALUE" + favourites.value)
+                DatabaseBuilder.getInstance(context).pokemonDao().insertPokemon(Util.getPokemonSimple(pokemon, favourites.value))
+            }
+        }
+    }
+
+    fun updatePokemons(pokemons: List<Pokemon>, context: Context?) {
+        viewModelScope.launch {
+            if (context != null) {
+                val waitingUpdate = pokemons.mapIndexed { index, pokemon ->
+                    async { DatabaseBuilder.getInstance(context).pokemonDao().updatePokemon(Util.getPokemonSimpleForUpdate(pokemon, pokemons, index)) }
+                }
+                val temp = waitingUpdate.awaitAll()
             }
         }
     }

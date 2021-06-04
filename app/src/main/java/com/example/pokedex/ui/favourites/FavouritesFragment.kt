@@ -64,8 +64,10 @@ class FavouritesFragment : Fragment() {
         }
 
         model.reorderEnabled.observe(viewLifecycleOwner, {
-            println("EVEEVOEVO")
             binding.list.adapter?.notifyDataSetChanged()
+            if (!it) {
+                model.favourites.value?.let { it1 -> model.updatePokemons(it1, context) }
+            }
         })
 
 

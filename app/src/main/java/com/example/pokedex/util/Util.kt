@@ -148,10 +148,30 @@ object Util {
         return capitalizeFirstLetter(temp[0]) + " " + temp[1]
     }
 
-    fun getPokemonSimple(pokemon: Pokemon): PokemonSimple {
+    fun getPokemonSimple(pokemon: Pokemon, list: List<Pokemon>?): PokemonSimple {
         val name = pokemon.name
         val url = "https://pokeapi.co/api/v2/pokemon/${pokemon.id}/"
-        return PokemonSimple(name, url)
+        if (list == null) {
+            return PokemonSimple(name, url)
+        }
+        val order = dohvatiBrojFavorita(list)
+        return PokemonSimple(name, url, order)
+    }
+
+    fun getPokemonSimpleForUpdate(pokemon: Pokemon, list: List<Pokemon>?, order: Int): PokemonSimple {
+        val name = pokemon.name
+        val url = "https://pokeapi.co/api/v2/pokemon/${pokemon.id}/"
+        return PokemonSimple(name, url, order)
+    }
+
+    private fun dohvatiBrojFavorita(list: List<Pokemon>): Int {
+        var counter = 0
+        for (item in list) {
+            if (item.isFavourite) {
+                counter++
+            }
+        }
+        return counter
     }
 
     fun isFavourite(pokemon: Pokemon, list: List<Pokemon>): Boolean {
