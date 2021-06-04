@@ -1,5 +1,6 @@
 package com.example.pokedex.ui.pokemon
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,13 +28,31 @@ class EvolutionAdapter(private val pokemons: MutableList<Pokemon>, private val m
     override fun onBindViewHolder(holder: EvolutionViewHolder, position: Int) {
         val pokemon = pokemons[position]
 
-        holder.binding.mainEvolutionLayout.imgPokemon.load(pokemon.sprites.other.officialArtwork.front_default) { size(256) }
-        holder.binding.mainEvolutionLayout.tvPokemonName.text = Util.capitalizeFirstLetter(pokemon.name)
-        holder.binding.mainEvolutionLayout.tvEvolved.text = holder.itemView.resources.getString(Util.getEvolution(position))
+        holder.binding.root.setOnClickListener {
+            val intent = Intent(holder.itemView.context, PokemonActivity::class.java)
+            intent.putExtra("EXTRA_POKEMON", pokemon)
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.binding.mainEvolutionLayout.imgPokemon.load(pokemon.sprites.other.officialArtwork.front_default) {
+            size(
+                256
+            )
+        }
+        holder.binding.mainEvolutionLayout.tvPokemonName.text =
+            Util.capitalizeFirstLetter(pokemon.name)
+        holder.binding.mainEvolutionLayout.tvEvolved.text =
+            holder.itemView.resources.getString(Util.getEvolution(position))
 
         //prvi type slot
-        holder.binding.mainEvolutionLayout.type1.tvTypeName.text = pokemon.types[0].type.name.toUpperCase()
-        holder.binding.mainEvolutionLayout.type1.root.background.setTint(ContextCompat.getColor(holder.itemView.context, Util.getTypeColor(pokemon.types[0].type.name)))
+        holder.binding.mainEvolutionLayout.type1.tvTypeName.text =
+            pokemon.types[0].type.name.toUpperCase()
+        holder.binding.mainEvolutionLayout.type1.root.background.setTint(
+            ContextCompat.getColor(
+                holder.itemView.context,
+                Util.getTypeColor(pokemon.types[0].type.name)
+            )
+        )
 
         //postavljanje drugog type slota, ukoliko ga pokemon ima
         if (pokemon.types.size == 2) {

@@ -41,6 +41,8 @@ class SearchFragment : Fragment() {
 
         adapter = SearchAdapter(model)
 
+        model.favourites.value?.clear()
+
         model.getFavourites(requireContext())
 
         if (model.favourites.value.isNullOrEmpty()) {
@@ -119,4 +121,10 @@ class SearchFragment : Fragment() {
             adapter.submitList(it)
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        binding.list.adapter?.notifyDataSetChanged()
+    }
+
 }

@@ -15,7 +15,7 @@ interface PokemonDao {
     @Query("SELECT * FROM PokemonSimple ORDER BY `order`")
     suspend fun getFavourites(): List<PokemonSimple>
 
-    @Query("DELETE FROM PokemonSimple")
+    @Query("DELETE FROM PokemonSimple WHERE `order` > -100")
     suspend fun deleteAll()
 
     @Update

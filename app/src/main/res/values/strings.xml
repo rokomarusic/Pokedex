@@ -52,4 +52,16 @@
     <string name="eng">English</string>
     <string name="cro">Croatian</string>
     <string name="test" translatable="false">Test</string>
+    <string name="classYear">Class 2021</string>
+    <string name="appname">App name</string>
+    <string name="appname_value">Pokedex App</string>
+    <string name="api_credit">API Credit</string>
+    <string name="pokeapi" translatable="false">PokeAPI</string>
+    <string name="developer" translatable="false">Developer</string>
+    <string name="dev_name" translatable="false">Roko Marušić</string>
+    <string name="academy">SofaScore Android Academy</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">cancel</string>
+    <string name="clear_favs">Clear favourites list?</string>
+    <string name="fav_is_clear">Favourites list is clear.</string>
 </resources>

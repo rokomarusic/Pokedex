@@ -37,4 +37,13 @@
     <string name="category">Kategorija</string>
     <string name="eng">Engleski</string>
     <string name="cro">Hrvatski</string>
+    <string name="classYear">Godina 2021</string>
+    <string name="appname">Ime app-a</string>
+    <string name="appname_value">Pokedex App</string>
+    <string name="api_credit">API zasluge</string>
+    <string name="academy">SofaScore Android Akademija</string>
+    <string name="clear">Očisti</string>
+    <string name="cancel">Otkaži</string>
+    <string name="clear_favs">Očisti favorite?</string>
+    <string name="fav_is_clear">Lista favorita je očišćena</string>
 </resources>

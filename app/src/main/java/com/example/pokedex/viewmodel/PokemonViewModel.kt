@@ -149,7 +149,13 @@ class PokemonViewModel : ViewModel() {
     fun deleteAll(context: Context?) {
         viewModelScope.launch {
             if (context != null) {
-                DatabaseBuilder.getInstance(context).pokemonDao().deleteAll()
+                val waiting =
+                    async { DatabaseBuilder.getInstance(context).pokemonDao().deleteAll() }
+                val temp = waiting.await()
+                favourites.value?.clear()
+                println("TTTTTTTTT " + temp + ", " + favourites.value)
+
+                favourites.postValue(favourites.value)
             }
         }
     }
@@ -157,7 +163,6 @@ class PokemonViewModel : ViewModel() {
     fun deletePokemon(pokemon: Pokemon, context: Context?) {
         viewModelScope.launch {
             if (context != null) {
-                println("FAVVALUE" + favourites.value)
                 DatabaseBuilder.getInstance(context).pokemonDao().deletePokemon(Util.getPokemonSimple(pokemon, favourites.value))
             }
         }

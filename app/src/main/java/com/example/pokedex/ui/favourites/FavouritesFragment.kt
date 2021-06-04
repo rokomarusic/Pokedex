@@ -30,6 +30,7 @@ class FavouritesFragment : Fragment() {
 
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
 
+        model.favourites.value?.clear()
         model.getFavourites(requireContext())
 
         binding.list.layoutManager = LinearLayoutManager(requireContext())
@@ -110,8 +111,8 @@ class FavouritesFragment : Fragment() {
                     }
 
                     override fun onSwiped(
-                            viewHolder: RecyclerView.ViewHolder,
-                            direction: Int
+                        viewHolder: RecyclerView.ViewHolder,
+                        direction: Int
                     ) {
                         // 4. Code block for horizontal swipe.
                         //    ItemTouchHelper handles horizontal swipe as well, but
@@ -120,5 +121,11 @@ class FavouritesFragment : Fragment() {
                 }
         ItemTouchHelper(simpleItemTouchCallback)
     }
+
+    override fun onResume() {
+        super.onResume()
+        binding.list.adapter?.notifyDataSetChanged()
+    }
+
 
 }
