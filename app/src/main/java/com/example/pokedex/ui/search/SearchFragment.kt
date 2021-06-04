@@ -1,6 +1,7 @@
 package com.example.pokedex.ui.search
 
 import android.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokedex.databinding.FragmentSearchBinding
 import com.example.pokedex.databinding.FragmentSettingsBinding
+import com.example.pokedex.ui.pokemon.PokemonActivity
 import com.example.pokedex.viewmodel.PokemonViewModel
 import java.util.ArrayList
 
@@ -68,7 +70,7 @@ class SearchFragment : Fragment() {
 
         model.hints.observe(viewLifecycleOwner, {
             val adapterActv = context?.resources?.let {
-                model.getPokemons().value?.let { it1 ->
+                model.hints.value?.let { it1 ->
                     ArrayAdapter(
                             requireContext(),
                             R.layout.select_dialog_item,
@@ -90,22 +92,21 @@ class SearchFragment : Fragment() {
             if (binding.actv.enoughToFilter()) {
                 if (!thresholdReached) {
                     thresholdReached = true
+                    model.getHints(binding.actv.text.toString())
                 } else {
-                    model.hints.value?.filter { it -> it.startsWith(binding.actv.text.toString()) }
+                    model.hints.value?.filter { it -> it.name.startsWith(binding.actv.text.toString()) }
                 }
             }
 
 
         }
 
-        binding.actv.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                model.pokemonLiveData.value?.filter { it -> it.name.startsWith(binding.actv.text.toString()) }
-                adapter.notifyDataSetChanged()
-
-            }
-            return@setOnEditorActionListener true;
+        binding.actv.setOnItemClickListener { parent, view, position, id ->
+            val item = parent.getItemAtPosition(position)
+            val pokemonList = model.hints.value?.filter { it.name == item }
+            val intent = Intent(context, PokemonActivity::class.java)
+            intent.putExtra("EXTRA_POKEMON", pokemonList?.get(0))
+            startActivity(intent)
         }
 
 

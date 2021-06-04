@@ -19,6 +19,7 @@ interface APIService {
             @Query("offset") offset: Int = 0
     ): Response<PokemonSearch>
 
+
     @GET("{pokemon}")
     suspend fun getPokemon(@Path("pokemon") pokemon: String): Pokemon
 

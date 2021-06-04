@@ -28,7 +28,6 @@ class SearchAdapter(private val model: PokemonViewModel) :
             binding.pokemonImg.load(pokemon.sprites.other.officialArtwork.front_default) { size(256) }
             binding.tvOrderPokemon.text = Util.returnId(pokemon.order)
 
-            println("FAVORITO " + model.favourites.value)
 
             if (model.favourites.value?.let { Util.isFavourite(pokemon, it) } == true) {
                 binding.favImg.load(R.drawable.ic_star_1) { size(64) }

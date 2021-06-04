@@ -31,6 +31,7 @@ object RetrofitBuilder {
 class ErrorInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
+        println(request.body())
         val response = try {
             chain.proceed(request)
         } catch (e: java.lang.Exception) {

@@ -25,7 +25,7 @@ import java.lang.AssertionError
 class PokemonViewModel : ViewModel() {
 
     var pokemonLiveData: LiveData<PagedList<Pokemon>>
-    val hints = MutableLiveData<ArrayList<String>>()
+    val hints = MutableLiveData<ArrayList<Pokemon>>()
     val evolutionMap = MutableLiveData<Map<Int, MutableList<Pokemon>>>()
     val minLvlMap = MutableLiveData<Map<Int, MutableList<Int?>>>()
     val type1 = MutableLiveData<PokemonType>()
@@ -39,7 +39,6 @@ class PokemonViewModel : ViewModel() {
         val searchConfig =
                 PagedList.Config.Builder().setPageSize(20).setEnablePlaceholders(false).build()
         pokemonLiveData = initializedPagedListBuilder(searchConfig).build()
-        hints.value = pokemonLiveData.value?.map { it -> it.name } as ArrayList<String>?
         reorderEnabled.value = false
     }
 
@@ -184,6 +183,28 @@ class PokemonViewModel : ViewModel() {
                     async { DatabaseBuilder.getInstance(context).pokemonDao().updatePokemon(Util.getPokemonSimpleForUpdate(pokemon, pokemons, index)) }
                 }
                 val temp = waitingUpdate.awaitAll()
+            }
+        }
+    }
+
+    fun getHints(name: String) {
+        viewModelScope.launch {
+            val waitingPokemonSimple = async {
+                RetrofitBuilder.apiService.getPokemonSearch(1200, 0)
+            }
+            var pokemonSimples = waitingPokemonSimple.await().body()?.results as MutableList<PokemonSimple>
+            pokemonSimples = pokemonSimples?.filter { it.name.startsWith(name) } as MutableList<PokemonSimple>
+            val waitingPokemons = pokemonSimples?.map {
+                async {
+                    RetrofitBuilder.apiService.getPokemon(it.url.substring(18))
+                }
+            }
+            val temp = waitingPokemons?.awaitAll()
+            if (temp?.isNotEmpty() == true) {
+                for (item in temp) {
+                    item.isFavourite = true
+                }
+                hints.value = temp as ArrayList<Pokemon>
             }
         }
     }
