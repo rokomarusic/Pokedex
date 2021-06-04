@@ -80,6 +80,7 @@ class PokemonActivity : AppCompatActivity() {
             binding.pokemonBasicInfo.type1.root.setOnClickListener {
                 val intent = Intent(this, TypeActivity::class.java)
                 intent.putExtra("EXTRA_TYPE", model.type1.value)
+                intent.putExtra("EXTRA_POKEMON", pokemon)
                 startActivity(intent)
             }
         })
@@ -97,7 +98,8 @@ class PokemonActivity : AppCompatActivity() {
                 binding.pokemonBasicInfo.type2.root.setOnClickListener {
                     val intent = Intent(this, TypeActivity::class.java)
                     intent.putExtra("EXTRA_TYPE", model.type2.value)
-                    startActivity(intent)
+                    intent.putExtra("EXTRA_POKEMON", pokemon)
+                    startActivityForResult(intent, 1)
                 }
             })
 

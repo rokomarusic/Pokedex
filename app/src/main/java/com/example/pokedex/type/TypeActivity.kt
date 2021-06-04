@@ -1,13 +1,16 @@
 package com.example.pokedex.type
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.pokedex.R
 import com.example.pokedex.databinding.ActivityTypeBinding
+import com.example.pokedex.models.Pokemon
 import com.example.pokedex.models.PokemonType
 import com.example.pokedex.type.ui.main.SectionsPagerAdapter
 import com.example.pokedex.util.Util
+
 
 class TypeActivity : AppCompatActivity() {
 
@@ -26,7 +29,10 @@ class TypeActivity : AppCompatActivity() {
         supportActionBar?.setBackgroundDrawable(getDrawable(Util.getTypeColor(type.name)))
         binding.tabs.background.setTint(ContextCompat.getColor(this, Util.getTypeColor(type.name)))
 
-        supportActionBar?.title = getString(R.string.type_name, Util.capitalizeFirstLetter(type.name))
+        supportActionBar?.title = getString(
+            R.string.type_name,
+            Util.capitalizeFirstLetter(type.name)
+        )
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, type)
 
@@ -35,4 +41,5 @@ class TypeActivity : AppCompatActivity() {
         binding.tabs.setupWithViewPager(binding.viewPager)
 
     }
+
 }
