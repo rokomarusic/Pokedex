@@ -59,10 +59,6 @@ class SearchFragment : Fragment() {
             }
         })
 
-
-
-
-
         return view
     }
 

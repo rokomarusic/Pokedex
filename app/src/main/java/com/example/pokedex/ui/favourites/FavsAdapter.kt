@@ -2,9 +2,11 @@ package com.example.pokedex.ui.favourites
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.clear
 import coil.load
 import com.example.pokedex.R
 import com.example.pokedex.databinding.ItemFavouriteBinding
@@ -13,7 +15,7 @@ import com.example.pokedex.ui.pokemon.PokemonActivity
 import com.example.pokedex.util.Util
 import com.example.pokedex.viewmodel.PokemonViewModel
 
-class FavsAdapter(private val favs: MutableList<Pokemon>, private val model: PokemonViewModel) : RecyclerView.Adapter<FavsAdapter.FavsViewHolder>() {
+class FavsAdapter(private val favs: MutableList<Pokemon>, private val model: PokemonViewModel, private val fragment: FavouritesFragment) : RecyclerView.Adapter<FavsAdapter.FavsViewHolder>() {
 
     class FavsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemFavouriteBinding.bind(view)
@@ -21,7 +23,15 @@ class FavsAdapter(private val favs: MutableList<Pokemon>, private val model: Pok
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_favourite, parent, false)
-        return FavsViewHolder(view)
+        val fvh = FavsViewHolder(view)
+        fvh.binding.imgReorder.setOnTouchListener { view, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                fragment.startDragging(fvh)
+            }
+            return@setOnTouchListener true
+
+        }
+        return fvh
     }
 
     override fun onBindViewHolder(holder: FavsViewHolder, position: Int) {
@@ -58,9 +68,28 @@ class FavsAdapter(private val favs: MutableList<Pokemon>, private val model: Pok
             }
             pokemon.isFavourite = !pokemon.isFavourite
         }
+
+        if (model.reorderEnabled.value == true) {
+            holder.binding.imgReorder.load(R.drawable.ic_reorder) { size(64) }
+        } else {
+            holder.binding.imgReorder.clear()
+        }
+
     }
 
     override fun getItemCount(): Int {
         return favs.size
     }
+
+    fun moveItem(from: Int, to: Int) {
+        val fromLocation = favs[from]
+        favs.removeAt(from)
+        /*if (to < from) {
+            values.add(to, fromValue)
+        } else {
+            values.add(to - 1, fromValue)
+        }*/
+        favs.add(to, fromLocation)
+    }
+
 }

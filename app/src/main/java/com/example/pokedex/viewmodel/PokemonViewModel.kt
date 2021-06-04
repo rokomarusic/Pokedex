@@ -31,6 +31,7 @@ class PokemonViewModel : ViewModel() {
     val type2 = MutableLiveData<PokemonType>()
     val moves = MutableLiveData<ArrayList<PokemonMove>>()
     val favourites = MutableLiveData<ArrayList<Pokemon>>()
+    val reorderEnabled = MutableLiveData<Boolean>()
 
 
     init {
@@ -38,6 +39,7 @@ class PokemonViewModel : ViewModel() {
                 PagedList.Config.Builder().setPageSize(20).setEnablePlaceholders(false).build()
         pokemonLiveData = initializedPagedListBuilder(searchConfig).build()
         hints.value = pokemonLiveData.value?.map { it -> it.name } as ArrayList<String>?
+        reorderEnabled.value = false
     }
 
     fun getPokemons(): LiveData<PagedList<Pokemon>> = pokemonLiveData
