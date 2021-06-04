@@ -13,7 +13,8 @@ data class Pokemon(
         val stats: List<Stat>,
         val abilities: List<Ability>,
         val types: List<Type>,
-        val species: Info
+        val species: Info,
+        var isFavourite: Boolean = false
 ) : Serializable
 
 data class Sprites(val other: SpritesOthers) : Serializable

@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
 
     private val model: PokemonViewModel by activityViewModels()
 
-    private val adapter = SearchAdapter()
+    private lateinit var adapter: SearchAdapter
 
 
     override fun onCreateView(
@@ -39,10 +39,29 @@ class SearchFragment : Fragment() {
 
         val view = binding.root
 
-        observeLiveData()
-        initializeList()
+        adapter = SearchAdapter(model)
 
-        initializeAutoComplete()
+        model.getFavourites(requireContext())
+
+        if (model.favourites.value.isNullOrEmpty()) {
+            observeLiveData()
+            initializeList()
+            initializeAutoComplete()
+        }
+
+        model.favourites.observe(viewLifecycleOwner, {
+            if (binding.list.adapter == null) {
+                observeLiveData()
+                initializeList()
+                initializeAutoComplete()
+            } else {
+                adapter.notifyDataSetChanged()
+            }
+        })
+
+
+
+
 
         return view
     }

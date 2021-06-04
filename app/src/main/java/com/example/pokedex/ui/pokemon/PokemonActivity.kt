@@ -45,6 +45,31 @@ class PokemonActivity : AppCompatActivity() {
 
         binding.pokemonBasicInfo.tvPokedexNumValue.text = Util.returnId(pokemon.order)
 
+        model.getFavourites(this)
+
+        model.favourites.observe(this, {
+            if (model.favourites.value?.let { Util.isFavourite(pokemon, it) } == true) {
+                binding.favImg.load(R.drawable.ic_star_1) { size(64) }
+            } else {
+                binding.favImg.load(R.drawable.ic_star_0) { size(64) }
+            }
+        })
+        //oznaka favorita
+
+
+        binding.favImg.setOnClickListener {
+            if (pokemon.isFavourite) {
+                binding.favImg.load(R.drawable.ic_star_0)
+                model.deletePokemon(pokemon, this)
+                model.favourites.value?.remove(pokemon)
+            } else {
+                binding.favImg.load(R.drawable.ic_star_1)
+                model.insertPokemon(pokemon, this)
+                model.favourites.value?.add(pokemon)
+            }
+            pokemon.isFavourite = !pokemon.isFavourite
+        }
+
         //prvi type slot
         binding.pokemonBasicInfo.type1.tvTypeName.text = Util.capitalizeFirstLetter(pokemon.types[0].type.name)
         binding.pokemonBasicInfo.type1.root.background.setTint(ContextCompat.getColor(this, Util.getTypeColor(pokemon.types[0].type.name)))

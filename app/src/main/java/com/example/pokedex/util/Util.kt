@@ -2,6 +2,8 @@ package com.example.pokedex.util
 
 import android.content.res.Resources
 import com.example.pokedex.R
+import com.example.pokedex.models.Pokemon
+import com.example.pokedex.models.PokemonSimple
 import com.example.pokedex.models.Stat
 import kotlin.math.round
 
@@ -144,5 +146,20 @@ object Util {
 
         val temp = move.split("-")
         return capitalizeFirstLetter(temp[0]) + " " + temp[1]
+    }
+
+    fun getPokemonSimple(pokemon: Pokemon): PokemonSimple {
+        val name = pokemon.name
+        val url = "https://pokeapi.co/api/v2/pokemon/${pokemon.id}/"
+        return PokemonSimple(name, url)
+    }
+
+    fun isFavourite(pokemon: Pokemon, list: List<Pokemon>): Boolean {
+        for (item in list) {
+            if (item.id == pokemon.id) {
+                return true
+            }
+        }
+        return false
     }
 }

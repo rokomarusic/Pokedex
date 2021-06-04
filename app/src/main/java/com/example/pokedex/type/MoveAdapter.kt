@@ -34,8 +34,13 @@ class MoveAdapter(private val moves: MutableList<PokemonMove>) : RecyclerView.Ad
         holder.binding.genValue.root.setBackgroundColor(holder.itemView.resources.getColor(Util.getGenColor(move.generation.name)))
         holder.binding.genValue.root.background.alpha = 77
 
+        holder.binding.ppValue.root.setBackgroundColor(holder.itemView.resources.getColor(R.color.cold_gray))
+        holder.binding.ppValue.root.background.alpha = 26
+
         move.damage_class?.name?.let { Util.getCategoryColor(it) }?.let { holder.itemView.resources.getColor(it) }?.let { holder.binding.categoryValue.root.setBackgroundColor(it) }
         holder.binding.categoryValue.root.background.alpha = 77
+
+
     }
 
     override fun getItemCount(): Int {

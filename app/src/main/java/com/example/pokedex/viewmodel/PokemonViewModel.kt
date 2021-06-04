@@ -1,5 +1,6 @@
 package com.example.pokedex.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.example.pokedex.db.DatabaseBuilder
 import com.example.pokedex.models.*
 import com.example.pokedex.networking.ApiClient
 import com.example.pokedex.paging.PokemonPagingSource
+import com.example.pokedex.util.Util
 import com.example.projekt1.networking.APIService
 import com.example.projekt1.networking.RetrofitBuilder
 import kotlinx.coroutines.async
@@ -27,6 +30,7 @@ class PokemonViewModel : ViewModel() {
     val type1 = MutableLiveData<PokemonType>()
     val type2 = MutableLiveData<PokemonType>()
     val moves = MutableLiveData<ArrayList<PokemonMove>>()
+    val favourites = MutableLiveData<ArrayList<Pokemon>>()
 
 
     init {
@@ -114,6 +118,53 @@ class PokemonViewModel : ViewModel() {
             moves.value = waitingMoves.awaitAll() as ArrayList<PokemonMove>
         }
 
+    }
+
+    fun getFavourites(context: Context?) {
+        viewModelScope.launch {
+            if (context != null) {
+                val waitingPokemonSimple = async {
+                    DatabaseBuilder.getInstance(context).pokemonDao().getFavourites() as MutableList<PokemonSimple>
+                }
+                val pokemonSimples = waitingPokemonSimple.await()
+                val waitingPokemons = pokemonSimples.map {
+                    async {
+                        RetrofitBuilder.apiService.getPokemon(it.url.substring(18))
+                    }
+                }
+                val temp = waitingPokemons.awaitAll()
+                if (temp.isNotEmpty()) {
+                    for (item in temp) {
+                        item.isFavourite = true
+                    }
+                    favourites.value = temp as ArrayList<Pokemon>
+                }
+            }
+        }
+    }
+
+    fun deleteAll(context: Context?) {
+        viewModelScope.launch {
+            if (context != null) {
+                DatabaseBuilder.getInstance(context).pokemonDao().deleteAll()
+            }
+        }
+    }
+
+    fun deletePokemon(pokemon: Pokemon, context: Context?) {
+        viewModelScope.launch {
+            if (context != null) {
+                DatabaseBuilder.getInstance(context).pokemonDao().deletePokemon(Util.getPokemonSimple(pokemon))
+            }
+        }
+    }
+
+    fun insertPokemon(pokemon: Pokemon, context: Context?) {
+        viewModelScope.launch {
+            if (context != null) {
+                DatabaseBuilder.getInstance(context).pokemonDao().insertPokemon(Util.getPokemonSimple(pokemon))
+            }
+        }
     }
 
 }
