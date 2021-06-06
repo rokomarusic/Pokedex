@@ -1,6 +1,67 @@
 <resources>
     <string name="app_name">Pokedex</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="favourites">Favourites</string>
+    <string name="clear_favourites">clear my favourites list</string>
+    <string name="more_info">more info</string>
+    <string name="lorem" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+    <string name="about">About</string>
+    <string name="lang">Language</string>
+    <string name="pokedex_num">POKEDEX NUM</string>
+    <string name="type">TYPE</string>
+    <string name="height">HEIGHT</string>
+    <string name="weight">WEIGHT</string>
+    <string name="abilities">Abilities</string>
+    <string name="stats">Stats</string>
+    <string name="evolution">Evolution</string>
+    <string name="hidden_ability">Hidden Ability</string>
+    <string name="weight_value" translatable="false">%1$s lbs. (%2$s kg)</string>
+    <string name="height_value" translatable="false">%1$s\'%2$s\'\' (%3$s m)</string>
+    <string name="hp" translatable="false">HP:</string>
+    <string name="defense">Defense:</string>
+    <string name="special_attack">Sp. Atk:</string>
+    <string name="special_defense">Sp. Def:</string>
+    <string name="speed">Speed:</string>
+    <string name="total">Total:</string>
+    <string name="unevolved">UNEVOLVED</string>
+    <string name="evolution1">1ST EVOLUTION</string>
+    <string name="evolution2">2ND EVOLUTION</string>
+    <string name="lvl" translatable="false">Lv %1$s</string>
+    <string name="title_activity_type" translatable="false">TypeActivity</string>
+    <string name="tab_text_1">DAMAGE OVERVIEW</string>
+    <string name="tab_text_2">MOVES</string>
+    <string name="power">POWER</string>
+    <string name="types">TYPES</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="defensive">Defensive</string>
+    <string name="offensive">Offensive</string>
+    <string name="double_damage" translatable="false">2x</string>
+    <string name="half_damage" translatable="false">1/2x</string>
+    <string name="no_damage" translatable="false">0x</string>
+    <string name="type_name" translatable="false">%1$s type</string>
+    <string name="none">None</string>
+    <string name="gen" translatable="false">GEN</string>
+    <string name="move">MOVE</string>
+    <string name="category">CATEGORY</string>
+    <string name="pp" translatable="false">PP</string>
+    <string name="attack">Attack:</string>
+    <string name="eng">English</string>
+    <string name="cro">Croatian</string>
+    <string name="test" translatable="false">Test</string>
+    <string name="classYear">Class 2021</string>
+    <string name="appname">App name</string>
+    <string name="appname_value">Pokedex App</string>
+    <string name="api_credit">API Credit</string>
+    <string name="pokeapi" translatable="false">PokeAPI</string>
+    <string name="developer" translatable="false">Developer</string>
+    <string name="dev_name" translatable="false">Roko Marušić</string>
+    <string name="academy">SofaScore Android Academy</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">cancel</string>
+    <string name="clear_favs">Clear favourites list?</string>
+    <string name="fav_is_clear">Favourites list is clear.</string>
 </resources>

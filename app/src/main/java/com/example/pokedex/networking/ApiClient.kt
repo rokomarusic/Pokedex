@@ -1,0 +1,46 @@
+package com.example.pokedex.networking
+
+import com.example.projekt1.networking.APIService
+import com.example.projekt1.networking.RetrofitBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+class ApiClient {
+
+    companion object {
+
+        private const val BASE_URL = "https://pokeapi.co/"
+
+        private val loggingInterceptor = HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+        private val okHttpClient = OkHttpClient().newBuilder()
+                .connectTimeout(2, TimeUnit.MINUTES)
+                .readTimeout(2, TimeUnit.MINUTES)
+                .writeTimeout(2, TimeUnit.MINUTES)
+                .retryOnConnectionFailure(true)
+                .build()
+
+
+        var retrofit: Retrofit? = null
+        private val apiService: APIService? = retrofit?.create(APIService::class.java)
+
+
+        fun getClient(): Retrofit {
+            when (retrofit) {
+                null -> retrofit = Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                        .client(okHttpClient)
+                        .build()
+            }
+            return retrofit as Retrofit
+        }
+    }
+
+}
